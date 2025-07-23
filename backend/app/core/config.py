@@ -3,8 +3,9 @@
 
 from typing import List
 from pydantic_settings import BaseSettings
-from pydantic import Field
+from pydantic import Field, validator
 import os
+import json
 
 class Settings(BaseSettings):
     """应用配置类"""
@@ -23,6 +24,17 @@ class Settings(BaseSettings):
         default=["*"],  # 允许所有来源，适用于开发环境
         env="ALLOWED_HOSTS"
     )
+    
+    @validator('ALLOWED_HOSTS', pre=True)
+    def parse_allowed_hosts(cls, v):
+        if isinstance(v, str):
+            try:
+                # 尝试解析JSON字符串
+                return json.loads(v)
+            except json.JSONDecodeError:
+                # 如果不是JSON，尝试按逗号分割
+                return [host.strip() for host in v.split(',') if host.strip()]
+        return v
     
     # 数据库配置
     DATABASE_URL: str = Field(
