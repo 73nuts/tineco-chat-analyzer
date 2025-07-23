@@ -9,7 +9,7 @@ const getBaseURL = () => {
   }
   
   // 生产环境使用环境变量或默认值
-  return import.meta.env.VITE_API_BASE_URL || 'https://your-backend-domain.railway.app/api'
+  return import.meta.env.VITE_API_BASE_URL || 'https://tineco-analyzer-backend.onrender.com/api'
 }
 
 // 创建axios实例
