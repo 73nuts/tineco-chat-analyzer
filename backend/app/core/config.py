@@ -47,7 +47,7 @@ class Settings(BaseSettings):
     
     # 售后人员配置文件路径
     STAFF_CONFIG_PATH: str = Field(
-        default="./config/售后名单.json",
+        default="/tmp/售后名单.json",
         env="STAFF_CONFIG_PATH"
     )
     

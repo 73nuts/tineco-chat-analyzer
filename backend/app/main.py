@@ -25,8 +25,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 挂载静态文件目录
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# 挂载静态文件目录（如果目录存在）
+import os
+static_dir = "static"
+if os.path.exists(static_dir):
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 # 注册API路由
 app.include_router(api_router, prefix="/api")

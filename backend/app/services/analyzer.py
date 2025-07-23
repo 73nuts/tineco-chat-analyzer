@@ -27,16 +27,15 @@ class ChatAnalyzer:
                 with open(staff_file_path, 'r', encoding='utf-8') as f:
                     staff_data = json.load(f)
                 self.after_sales_staff = [item['nick_name'] for item in staff_data]
+                print(f"成功加载售后人员名单: {len(self.after_sales_staff)} 人")
             else:
-                # 如果配置文件不存在，尝试从原始位置加载
-                original_path = "../售后名单.json"
-                if os.path.exists(original_path):
-                    with open(original_path, 'r', encoding='utf-8') as f:
-                        staff_data = json.load(f)
-                    self.after_sales_staff = [item['nick_name'] for item in staff_data]
-                else:
-                    print("警告: 未找到售后人员名单文件")
-                    self.after_sales_staff = []
+                # 生产环境中初始化为空列表，通过API动态添加
+                print("售后人员名单文件不存在，初始化为空列表")
+                self.after_sales_staff = []
+                # 确保配置文件目录存在
+                config_dir = os.path.dirname(staff_file_path)
+                if config_dir:
+                    os.makedirs(config_dir, exist_ok=True)
         except Exception as e:
             print(f"加载售后人员名单出错: {e}")
             self.after_sales_staff = []
