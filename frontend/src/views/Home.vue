@@ -151,7 +151,17 @@ const uploadedFiles = ref<FileUploadResponse[]>([])
 const loading = ref(false)
 
 // 上传配置
-const uploadAction = '/api/upload/'
+const getUploadAction = () => {
+  // 开发环境使用代理
+  if (import.meta.env.DEV) {
+    return '/api/upload/'
+  }
+  
+  // 生产环境使用完整的后端URL
+  return import.meta.env.VITE_API_BASE_URL + '/upload/' || 'https://tineco-analyzer-backend.onrender.com/api/upload/'
+}
+
+const uploadAction = getUploadAction()
 
 // 文件上传前的验证
 const beforeUpload = (file: File) => {
