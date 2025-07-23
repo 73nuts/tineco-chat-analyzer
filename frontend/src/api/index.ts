@@ -9,7 +9,9 @@ const getBaseURL = () => {
   }
   
   // 生产环境使用环境变量或默认值
-  return import.meta.env.VITE_API_BASE_URL || 'https://tineco-analyzer-backend.onrender.com/api'
+  const baseURL = import.meta.env.VITE_API_BASE_URL || 'https://tineco-analyzer-backend.onrender.com/api'
+  console.log('API Base URL:', baseURL, 'Environment:', import.meta.env.PROD ? 'production' : 'development')
+  return baseURL
 }
 
 // 创建axios实例
@@ -42,6 +44,14 @@ api.interceptors.response.use(
     return data
   },
   (error) => {
+    console.error('API Request Error:', {
+      url: error.config?.url,
+      method: error.config?.method,
+      status: error.response?.status,
+      message: error.message,
+      responseData: error.response?.data
+    })
+    
     const message = error.response?.data?.detail || error.message || '网络错误'
     ElMessage.error(message)
     return Promise.reject(error)
