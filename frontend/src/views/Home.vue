@@ -194,11 +194,15 @@ const handleUploadSuccess = (response: any) => {
   uploading.value = false
   uploadProgress.value = 0
   
-  if (response.success) {
+  console.log('Upload response:', response)
+  
+  // 处理可能的响应格式差异
+  const responseData = response.data || response
+  if (responseData.success || response.success) {
     ElMessage.success('文件上传成功')
     refreshFileList()
   } else {
-    ElMessage.error(response.message || '上传失败')
+    ElMessage.error(responseData.message || response.message || '上传失败')
   }
 }
 

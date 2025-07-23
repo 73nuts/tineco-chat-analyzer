@@ -17,9 +17,14 @@ app = FastAPI(
 )
 
 # 配置CORS中间件
+# 确保包含前端域名
+allowed_origins = settings.ALLOWED_HOSTS.copy()
+if "https://tineco-analyzer-frontend.onrender.com" not in allowed_origins:
+    allowed_origins.append("https://tineco-analyzer-frontend.onrender.com")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_HOSTS,
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
