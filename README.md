@@ -1,6 +1,6 @@
-# Tineco聊天记录分析系统
+# 聊天记录分析系统
 
-一个用于分析Tineco添可官方旗舰店聊天记录的Web应用系统，支持Excel文件上传、自动化分析和可视化报告展示。
+一个用于分析聊天记录的Web应用系统，支持Excel文件上传、自动化分析和可视化报告展示。
 
 ## 项目结构
 
@@ -62,24 +62,6 @@ cd backend
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
-
-## 开发进度
-
-- [x] 项目初始化和结构搭建
-- [ ] 前端基础框架搭建
-- [ ] 后端API框架搭建
-- [ ] 文件上传功能
-- [ ] 分析引擎集成
-- [ ] 结果展示页面
-- [ ] 配置管理功能
-
-## 贡献指南
-
-1. Fork本项目
-2. 创建功能分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启Pull Request
 
 ## 许可证
 
